@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql/mysql-server:8.0
+    container_name: xxxxx-mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./.docker/volumes/mysql:/var/lib/mysql
+    env_file: ./.env
+  
+  wordpress:
+    depends_on:
+      - mysql
+    build: ./
+    container_name: xxxxx-wordpress
+    ports:
+      - '8080:80'
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+    volumes:
+      - ./.docker/volumes/wp:/var/www/html
+      - ./wp/wp-content/themes:/var/www/html/wp-content/themes
+      - ./wp/wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./wp-install.sh:/tmp/wp-install.sh
+    env_file: ./.env
