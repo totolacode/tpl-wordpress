@@ -19,7 +19,7 @@ $ docker exec -it container-name sh
 $ chmod +x /tmp/wp-install.sh
 
 # シェルスクリプトの実行
-$ /tmp/wp-install.sh`
+$ /tmp/wp-install.sh
 
 # プラグインのインストールやアップデートができるようにする
 $ chown -R www-data:www-data *
